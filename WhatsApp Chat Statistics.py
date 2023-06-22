@@ -103,7 +103,7 @@ class Window(QtWidgets.QMainWindow):
     def open_gitHub(self):
         try:
             from webbrowser import open
-            open('https://github.com/mirac-c')
+            open('https://github.com/Mmirac1')
         except: pass
 
 
