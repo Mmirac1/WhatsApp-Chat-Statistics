@@ -18,10 +18,12 @@ class Window(QtWidgets.QMainWindow):
 
         self.ui.cmb_language.currentIndexChanged.connect(self.select_language)
         self.ui.le_dosyaYolu.textChanged.connect(self.path_changed)
+        self.ui.le_dosyaYolu.returnPressed.connect(self.button_click)
         self.ui.btn_ok.clicked.connect(self.button_click)
+        #self.ui.btn_filter.clicked.connect(self.filter)
         self.ui.gitHub_link.clicked.connect(self.open_gitHub)
 
-        self.ui.le_dosyaYolu.returnPressed.connect(self.button_click)
+        
 
     def control(self):
         if self.path == None:   self.ui.btn_ok.setText(btn_file)
@@ -78,9 +80,31 @@ class Window(QtWidgets.QMainWindow):
         self.control()
 
 
+    def filter(self):
+        from filterPage_UI import Ui_Settings_page
+        self.filter_window = QtWidgets.QMainWindow()
+        self.filter_ui = Ui_Settings_page()
+        self.filter_ui.setupUi(self.filter_window)
+        self.filter_window.show()
+
+        def filter_aply():
+            time = self.filter_ui.time_start.time()
+            timeSpec = self.filter_ui.time_start.timeSpec()
+            print(time)
+            print(time.toPyTime())
+            print(time.hour())
+            print(time.minute())
+            
+
+
+        self.filter_ui.rdb_allTime.setChecked(True)
+        self.filter_ui.btn_aply.clicked.connect(filter_aply)
+
+
+
     def select_language(self):
         global btn_file, btn_ok, pathEror, fileEror, notPath, file_select_message, resultText_name, resultText_messages, resultText_words, totalText, messageText, wordText
-        language = self.ui.cmb_language.currentIndex()    # 0 = English / 1 = Turkhis
+        language = self.ui.cmb_language.currentIndex()    # 0 = English / 1 = Turkish
         if language == 1: 
             self.ui.txt_bilgilendirmeEN.hide()
             self.ui.txt_bilgilendirmeTR.show()
